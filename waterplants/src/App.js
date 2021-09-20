@@ -1,27 +1,46 @@
-import logo from "./logo.svg";
-import "./App.css";
-import CreatePlantForm from "./components/CreatePlantForm";
+import React, { useEffect, useState } from "react";
+import { Route, Link, Switch, Redirect } from "react-router-dom";
+import axios from "axios";
 
-function App() {
+// import Login from "./components/Login";
+
+import "./App.css";
+
+const App = () => {
+  useEffect(() => {
+    axios
+      .get(`https://watermyplants01.herokuapp.com/api/plants`)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }, []);
+
   return (
     <div className="App">
-      <CreatePlantForm />
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div>
+        <Link to="/"> Home </Link>
+        <Link to="/login"> Login </Link>
+        <Link to="/logout"> Logout </Link>
+      </div>
+
+      <Switch>
+        <Route path="/">Home</Route>
+        {/* <Route path="/login" component={Login} /> */}
+        {/* <Route path="/signup" component={Signup} /> */}
+        {/* <Route path="/myInfo" component={UpdateUser} /> */}
+
+        {/* <Route path="/plants" component={PlantList} /> */}
+
+        {/* <Route path="/addPlant" component={CreatePlant} /> */}
+
+        {/* <Route path="/plants/:id" component={UpdatePlant} /> */}
+        <Route path="/logout" />
+      </Switch>
     </div>
   );
-}
+};
 
 export default App;
