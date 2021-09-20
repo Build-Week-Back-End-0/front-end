@@ -1,27 +1,27 @@
-import logo from "./logo.svg";
-import "./App.css";
-import CreatePlantForm from "./components/CreatePlantForm";
+import React, { useEffect, useState } from "react";
+import { Route, Switch, Redirect } from "react-router-dom";
+import axios from "axios";
 
-function App() {
+import Login from "./components/Login";
+
+import "./App.css";
+
+const App = () => {
   return (
     <div className="App">
-      <CreatePlantForm />
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div>
+        <Link to="/"> Home </Link>
+        <Link to="/login"> Login </Link>
+      </div>
+
+      <Switch>
+        <Route path="/">Home</Route>
+        <Route path="/login" component={Login} />
+        <Route path="/" />
+        <Route path="/login" />
+      </Switch>
     </div>
   );
-}
+};
 
 export default App;
