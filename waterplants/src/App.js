@@ -1,9 +1,11 @@
 import logo from "./logo.svg";
 import "./App.css";
+import CreatePlantForm from "./components/CreatePlantForm";
 
 function App() {
   return (
     <div className="App">
+      <CreatePlantForm />
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>

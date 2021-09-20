@@ -7,10 +7,38 @@ const initialFormValues = {
   species: "",
   h2ofrequency: "",
 };
+const initialPlants = [];
 
 const CreatePlantForm = (props) => {
-  const { values, submit, change, disabled, errors } = props;
+  const [plants, setPlants] = useState(initialPlants);
   const [formValues, setFormValues] = useState(initialFormValues);
+
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
+    submit();
+  };
+
+  const validate = (name, value) => {
+    yup
+      .reach(formSchema, name)
+      .validate(value)
+      .then(() => setFormErrors({ ...formErrors, [name]: "" }))
+      .catch((err) => setFormErrors({ ...formErrors, [name]: err.errors[0] }));
+  };
+
+  const inputChange = (name, value) => {
+    validate(name, value);
+    setFormValues({
+      ...formValues,
+      [name]: value,
+    });
+  };
+
+  const handleChange = (evt) => {
+    const { name, value, checked, type } = evt.target;
+    const valueToUse = value;
+    inputChange(name, valueToUse);
+  };
   return (
     <form>
       <h2>Add A New Plant</h2>
