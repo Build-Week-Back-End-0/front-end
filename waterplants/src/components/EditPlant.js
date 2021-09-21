@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 const EditPlant = () => {
+  const [editPlant, setEdit] = useState();
   return (
     <div>
       <form>
