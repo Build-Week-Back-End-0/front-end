@@ -2,7 +2,11 @@ import React, { useEffect, useState } from "react";
 import { Route, Link, Switch, Redirect } from "react-router-dom";
 import axios from "axios";
 
-// import Login from "./components/Login";
+import LoginForm from "./components/LoginForm";
+import SignUpForm from "./components/SignUpForm";
+import CreatePlantForm from "./components/CreatePlantForm";
+import EditPlant from "./components/EditPlant";
+import PlantList from "./components/PlantList";
 
 import "./App.css";
 
@@ -11,7 +15,7 @@ const App = () => {
     axios
       .get(`https://watermyplants01.herokuapp.com/api/plants`)
       .then((res) => {
-        console.log(res);
+        console.log("testing");
       })
       .catch((err) => {
         console.error(err);
@@ -28,15 +32,15 @@ const App = () => {
 
       <Switch>
         <Route path="/">Home</Route>
-        {/* <Route path="/login" component={Login} /> */}
-        {/* <Route path="/signup" component={Signup} /> */}
+        <Route path="/login" component={LoginForm} />
+        <Route path="/signup" component={SignUpForm} />
         {/* <Route path="/myInfo" component={UpdateUser} /> */}
 
-        {/* <Route path="/plants" component={PlantList} /> */}
+        <Route path="/plants" component={PlantList} />
 
-        {/* <Route path="/addPlant" component={CreatePlant} /> */}
+        <Route path="/addPlant" component={CreatePlantForm} />
 
-        {/* <Route path="/plants/:id" component={UpdatePlant} /> */}
+        <Route path="/plants/update/:id" component={EditPlant} />
         <Route path="/logout" />
       </Switch>
     </div>
