@@ -6,12 +6,12 @@ import * as yup from "yup";
 const initialFormValues = {
   nickname: "",
   species: "",
-  h2oFrequency: "",
+  h2oFrequency: ""
 };
 const initialFormErrors = {
   nickname: "",
   species: "",
-  h2oFrequency: "",
+  h2oFrequency: ""
 };
 const initialPlants = [];
 const initialDisabled = true;
@@ -23,8 +23,9 @@ const CreatePlantForm = (props) => {
   const [disabled, setDisabled] = useState(initialDisabled);
 
   const postNewPlant = (newPlant) => {
+    const user = localStorage.getItem("user_id");
     axios
-      .post("https://watermyplants01.herokuapp.com/api/plants", newPlant)
+      .post("https://watermyplants01.herokuapp.com/api/plants", { user_id: user, ...newPlant })
       .then((res) => {
         console.log(res.data);
         setPlants([res.data, ...plants]);
@@ -47,7 +48,7 @@ const CreatePlantForm = (props) => {
     validate(name, value);
     setFormValues({
       ...formValues,
-      [name]: value,
+      [name]: value
     });
   };
   const onChange = (evt) => {
@@ -61,7 +62,7 @@ const CreatePlantForm = (props) => {
     const newPlant = {
       nickname: formValues.nickname.trim(),
       species: formValues.species.trim(),
-      h2oFrequency: formValues.h20frequency.trim(),
+      h2oFrequency: formValues.h2oFrequency.trim()
     };
     postNewPlant(newPlant);
   };
@@ -98,7 +99,7 @@ const CreatePlantForm = (props) => {
       </label>
       <label>
         How often do you water your plant?
-        <select>
+        <select name="h2oFrequency" onChange={onChange}>
           <option value="">--Select an Option--</option>
           <option value="1">Everyday</option>
           <option value="3">Every three days</option>
