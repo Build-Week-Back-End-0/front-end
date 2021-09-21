@@ -43,17 +43,10 @@ const CreatePlantForm = (props) => {
       .catch((err) => setFormErrors({ ...formErrors, [name]: err.errors[0] }));
   };
 
-  const inputChange = (name, value) => {
+  const onChange = (e) => {
+    const { name, value } = e.target;
     validate(name, value);
-    setFormValues({
-      ...formValues,
-      [name]: value,
-    });
-  };
-  const onChange = (evt) => {
-    const { name, value, checked, type } = evt.target;
-    const valueToUse = type === "checkbox" ? checked : value;
-    inputChange(name, valueToUse);
+    setFormValues({ ...formValues, [name]: value });
   };
 
   const formSubmit = (e) => {
@@ -61,7 +54,7 @@ const CreatePlantForm = (props) => {
     const newPlant = {
       nickname: formValues.nickname.trim(),
       species: formValues.species.trim(),
-      h2oFrequency: formValues.h20frequency.trim(),
+      h2oFrequency: formValues.h2oFrequency.trim(),
     };
     postNewPlant(newPlant);
   };
@@ -106,7 +99,7 @@ const CreatePlantForm = (props) => {
           <option value="7">Once a week</option>
         </select>
       </label>
-      <button>Submit</button>
+      <button disabled={disabled}>Submit</button>
     </form>
   );
 };

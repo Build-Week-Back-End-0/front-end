@@ -33,9 +33,13 @@ const App = () => {
         {/* <Route path="/myInfo" component={UpdateUser} /> */}
         <PrivateRoute path="/user"> user page </PrivateRoute>
 
-        <Route path={"/plants/update"} component={EditPlant} />
-        <Route path="/plants" component={PlantList} />
-        <PrivateRoute path={"/add"} component={CreatePlantForm} />
+
+        <Route exact path="/plants" component={PlantList} />
+
+        <Route path="/addPlant" component={CreatePlantForm} />
+        <Route path="/plants/update/:id" component={EditPlant} />
+        <Route path="/logout" />
+
       </Switch>
     </div>
   );
