@@ -1,20 +1,12 @@
 export const LOGIN = "LOGIN";
 export const LOGOUT = "LOGOUT";
-export const SIGNUP = "SIGNUP";
+export const LOAD_PLANTS = "LOAD_PLANTS";
 export const CREATE_PLANT = "CREATE_PLANT";
 export const UPDATE_PLANT = "UPDATE_PLANT";
 export const REMOVE_PLANT = "REMOVE_PLANT";
 
-export const login = (credentials) => {
-  return { type: LOGIN, payload: credentials };
-};
-
-export const logout = (token) => {
-  return { type: LOGOUT, payload: token };
-};
-
-export const signup = (signupFormValues) => {
-  return { type: SIGNUP, payload: signupFormValues };
+export const loadPlants = (plants) => {
+  return { type: LOAD_PLANTS, payload: plants };
 };
 
 export const createPlant = (plantValues) => {
