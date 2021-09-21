@@ -6,12 +6,12 @@ import { useHistory } from "react-router";
 
 const initialFormValues = {
   username: "",
-  password: "",
+  password: ""
 };
 
 const initialFormErrors = {
   username: "",
-  password: "",
+  password: ""
 };
 const initialDisabled = true;
 
@@ -31,15 +31,24 @@ const LoginForm = () => {
 
   const onChange = (e) => {
     const { name, value } = e.target;
-    validate(name, value);
+    // validate(name, value);
     setFormValues({
       ...formValues,
-      [name]: value,
+      [name]: value
     });
   };
   const formSubmit = (e) => {
     e.preventDefault();
-    push("/plants");
+    axios
+      .post("https://watermyplants01.herokuapp.com/api/auth/login", formValues)
+      .then((res) => {
+        localStorage.setItem("token", res.data.token);
+        localStorage.setItem("user_id", res.data.user_id);
+        push("/plants");
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   };
 
   useEffect(() => {
