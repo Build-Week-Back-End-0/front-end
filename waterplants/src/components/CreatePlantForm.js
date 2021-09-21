@@ -4,13 +4,11 @@ import axios from "axios";
 import * as yup from "yup";
 
 const initialFormValues = {
-  id: "",
   nickname: "",
   species: "",
   h2ofrequency: "",
 };
 const initialFormErrors = {
-  id: "",
   nickname: "",
   species: "",
   h2ofrequency: "",
@@ -50,8 +48,14 @@ const CreatePlantForm = (props) => {
       [name]: value,
     });
   };
-  const formSubmit = (evt) => {
-    evt.preventDefault();
+  const onChange = (evt) => {
+    const { name, value, checked, type } = evt.target;
+    const valueToUse = type === "checkbox" ? checked : value;
+    inputChange(name, valueToUse);
+  };
+
+  const formSubmit = (e) => {
+    e.preventDefault();
     const newPlant = {
       nickname: formValues.nickname.trim(),
       species: formValues.species.trim(),
@@ -62,13 +66,18 @@ const CreatePlantForm = (props) => {
   return (
     <form onSubmit={formSubmit}>
       <h2>Add A New Plant</h2>
+      <div className="errors">
+        <div>{formErrors.nickname}</div>
+        <div>{formErrors.species}</div>
+        <div>{formErrors.h2ofrequency}</div>
+      </div>
       <label>
         Name:
         <input
           name="nickname"
           type="text"
           placeholder="Add A Nickname"
-          onChange={inputChange}
+          onChange={onChange}
           value={formValues.nickname}
         />
       </label>
@@ -78,7 +87,7 @@ const CreatePlantForm = (props) => {
           type="text"
           name="species"
           placeholder="What is the plant species"
-          onChange={inputChange}
+          onChange={onChange}
           value={formValues.species}
         />
       </label>
