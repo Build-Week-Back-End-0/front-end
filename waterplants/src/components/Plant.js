@@ -3,7 +3,8 @@ import { useHistory } from "react-router";
 
 const Plant = ({ details }) => {
   const { push } = useHistory();
-  const plantEdit = () => push(`/plants/update/${details.plant_id}`);
+  const plantEdit = () =>
+    push(`/plants/update/${details.plant_id}`, { plant: details });
 
   if (!details) {
     return <h3>Working on fetching your User&apos;s details</h3>;
