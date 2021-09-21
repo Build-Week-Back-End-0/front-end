@@ -17,7 +17,7 @@ const initialFormErrors = {
 };
 const initialPlants = [];
 
-const CreatePlantForm = (props) => {
+const CreatePlant = (props) => {
   const [plants, setPlants] = useState(initialPlants);
   const [formValues, setFormValues] = useState(initialFormValues);
   const [formErrors, setFormErrors] = useState(initialFormErrors);
@@ -97,4 +97,4 @@ const CreatePlantForm = (props) => {
   );
 };
 
-export default CreatePlantForm;
+export default CreatePlant;
