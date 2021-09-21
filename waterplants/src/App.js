@@ -39,10 +39,9 @@ const App = () => {
         <Route path="/signup" component={SignUpForm} />
         {/* <Route path="/myInfo" component={UpdateUser} /> */}
 
-        <Route path="/plants" component={PlantList} />
+        <Route exact path="/plants" component={PlantList} />
 
         <Route path="/addPlant" component={CreatePlantForm} />
-
         <Route path="/plants/update/:id" component={EditPlant} />
         <Route path="/logout" />
       </Switch>
