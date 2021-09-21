@@ -43,7 +43,7 @@ const LoginForm = () => {
       .post("https://watermyplants01.herokuapp.com/api/auth/login", formValues)
       .then((res) => {
         localStorage.setItem("token", res.data.token);
-        localStorage.setItem("user_id", 7);
+        localStorage.setItem("user_id", res.data.user_id);
         push("/plants");
       })
       .catch((err) => {
