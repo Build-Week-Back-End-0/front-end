@@ -6,19 +6,21 @@ import * as yup from "yup";
 const initialFormValues = {
   nickname: "",
   species: "",
-  h2ofrequency: "",
+  h2oFrequency: "",
 };
 const initialFormErrors = {
   nickname: "",
   species: "",
-  h2ofrequency: "",
+  h2oFrequency: "",
 };
 const initialPlants = [];
+const initialDisabled = true;
 
 const CreatePlantForm = (props) => {
   const [plants, setPlants] = useState(initialPlants);
   const [formValues, setFormValues] = useState(initialFormValues);
   const [formErrors, setFormErrors] = useState(initialFormErrors);
+  const [disabled, setDisabled] = useState(initialDisabled);
 
   const postNewPlant = (newPlant) => {
     axios
@@ -59,17 +61,20 @@ const CreatePlantForm = (props) => {
     const newPlant = {
       nickname: formValues.nickname.trim(),
       species: formValues.species.trim(),
-      h2ofrequency: formValues.h20frequency.trim(),
+      h2oFrequency: formValues.h20frequency.trim(),
     };
     postNewPlant(newPlant);
   };
+  useEffect(() => {
+    plantSchema.isValid(formValues).then((valid) => setDisabled(!valid));
+  }, [formValues]);
   return (
     <form onSubmit={formSubmit}>
       <h2>Add A New Plant</h2>
       <div className="errors">
         <div>{formErrors.nickname}</div>
         <div>{formErrors.species}</div>
-        <div>{formErrors.h2ofrequency}</div>
+        <div>{formErrors.h2oFrequency}</div>
       </div>
       <label>
         Name:
