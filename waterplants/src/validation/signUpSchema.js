@@ -6,7 +6,11 @@ const signUpSchema = yup.object().shape({
     .string()
     .required("Password is required")
     .min(6, "Password must be at least 6 characters"),
-  phoneNumber: yup.number(),
+  phone_number: yup
+    .number()
+    .typeError("You must enter a valid phone number")
+    .required("You must enter a valid phone number")
+    .min(9, "Phone number must have 9 digits"),
 });
 
 export default signUpSchema;
