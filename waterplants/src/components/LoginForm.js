@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import loginSchema from "../validation/loginSchema";
 import axios from "axios";
 import * as yup from "yup";
+import { useHistory } from "react-router";
+
 const initialFormValues = {
   username: "",
   password: "",
@@ -11,26 +13,13 @@ const initialFormErrors = {
   username: "",
   password: "",
 };
-const initialUsers = [];
+const initialDisabled = true;
 
 const LoginForm = () => {
-  const [users, setUsers] = useState(initialUsers);
   const [formValues, setFormValues] = useState(initialFormValues);
   const [formErrors, setFormErrors] = useState(initialFormErrors);
-
-  const postNewUser = (newUser) => {
-    axios
-      .post("https://watermyplants01.herokuapp.com/api/users", newUser)
-      .then((res) => {
-        console.log(res.data);
-        setUsers([res.data, ...users]);
-        setFormValues(initialFormValues);
-      })
-      .catch((err) => {
-        console.error(err);
-        setFormValues(initialFormValues);
-      });
-  };
+  const [disabled, setDisabled] = useState(initialDisabled);
+  const { push } = useHistory();
 
   const validate = (name, value) => {
     yup
@@ -40,26 +29,23 @@ const LoginForm = () => {
       .catch((err) => setFormErrors({ ...formErrors, [name]: err.errors[0] }));
   };
 
-  const inputChange = (name, value) => {
+  const onChange = (e) => {
+    const { name, value } = e.target;
     validate(name, value);
     setFormValues({
       ...formValues,
       [name]: value,
     });
   };
-  const onChange = (evt) => {
-    const { name, value, checked, type } = evt.target;
-    const valueToUse = type === "checkbox" ? checked : value;
-    inputChange(name, valueToUse);
-  };
   const formSubmit = (e) => {
     e.preventDefault();
-    const newUser = {
-      username: formValues.username.trim(),
-      password: formValues.password.trim(),
-    };
-    postNewUser(newUser);
+    push("/plants");
   };
+
+  useEffect(() => {
+    loginSchema.isValid(formValues).then((valid) => setDisabled(!valid));
+  }, [formValues]);
+
   return (
     <form onSubmit={formSubmit}>
       <h2>Please enter your login information</h2>
@@ -87,7 +73,7 @@ const LoginForm = () => {
           value={formValues.password}
         />
       </label>
-      <button>Login</button>
+      <button disabled={disabled}>Login</button>
     </form>
   );
 };
