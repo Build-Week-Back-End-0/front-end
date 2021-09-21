@@ -2,13 +2,17 @@ import React, { useEffect, useState } from "react";
 import { Route, Link, Switch, Redirect } from "react-router-dom";
 import axios from "axios";
 
+import PrivateRoute from "./components/PrivateRoute";
+
 import LoginForm from "./components/LoginForm";
 import SignUpForm from "./components/SignUpForm";
-import CreatePlantForm from "./components/CreatePlantForm";
+import CreatePlant from "./components/CreatePlant";
 import EditPlant from "./components/EditPlant";
 import PlantList from "./components/PlantList";
 
 import "./App.css";
+
+const user = "username";
 
 const App = () => {
   useEffect(() => {
@@ -22,26 +26,36 @@ const App = () => {
       });
   }, []);
 
+  const handleClick = () => {
+    localStorage.setItem("token", "just for testing private routes");
+  };
+
   return (
     <div className="App">
       <div>
         <Link to="/"> Home </Link>
         <Link to="/login"> Login </Link>
         <Link to="/logout"> Logout </Link>
+        <Link to="/add">Add</Link>
       </div>
 
       <Switch>
-        <Route path="/">Home</Route>
-        <Route path="/login" component={LoginForm} />
-        <Route path="/signup" component={SignUpForm} />
+        <Route path="/login">Login Form</Route>
+        {/* <Route path="/signup" component={SignUpForm} /> */}
         {/* <Route path="/myInfo" component={UpdateUser} /> */}
+        <PrivateRoute path="/user"> user page </PrivateRoute>
 
-        <Route path="/plants" component={PlantList} />
+        {/* <Route path="/plants" component={PlantList} /> */}
 
-        <Route path="/addPlant" component={CreatePlantForm} />
+        <PrivateRoute path={"/add"} component={CreatePlant} />
 
-        <Route path="/plants/update/:id" component={EditPlant} />
+        <Route path={"/plants/update"} component={EditPlant} />
         <Route path="/logout" />
+
+        <Route path="/">
+          Home
+          <button onClick={handleClick}>set token</button>
+        </Route>
       </Switch>
     </div>
   );
