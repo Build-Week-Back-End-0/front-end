@@ -7,13 +7,13 @@ import { useHistory } from "react-router";
 const initialFormValues = {
   username: "",
   password: "",
-  phone_number: "",
+  phone_number: ""
 };
 
 const initialFormErrors = {
   username: "",
   password: "",
-  phone_number: "",
+  phone_number: ""
 };
 const initialUsers = [];
 
@@ -28,7 +28,7 @@ const SignUpForm = () => {
 
   const postNewUser = (newUser) => {
     axios
-      .post("https://watermyplants01.herokuapp.com/api/users", newUser)
+      .post("https://watermyplants01.herokuapp.com/api/auth/register", newUser)
       .then((res) => {
         console.log(res.data);
         setUsers([res.data, ...users]);
@@ -58,10 +58,10 @@ const SignUpForm = () => {
     const newUser = {
       username: formValues.username.trim(),
       phone_number: formValues.phone_number.trim(),
-      password: formValues.password.trim(),
+      password: formValues.password.trim()
     };
     postNewUser(newUser);
-    push("/plants");
+    push("/login");
   };
   useEffect(() => {
     signUpSchema.isValid(formValues).then((valid) => setDisabled(!valid));
