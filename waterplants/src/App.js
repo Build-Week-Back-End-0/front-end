@@ -9,6 +9,7 @@ import SignUpForm from "./components/SignUpForm";
 import CreatePlant from "./components/CreatePlant";
 import EditPlant from "./components/EditPlant";
 import PlantList from "./components/PlantList";
+import Home from "./components/Home";
 
 import "./App.css";
 
@@ -40,8 +41,12 @@ const App = () => {
       </div>
 
       <Switch>
-        <Route path="/login">Login Form</Route>
-        {/* <Route path="/signup" component={SignUpForm} /> */}
+
+
+       
+        <Route path="/login" component={LoginForm} />
+        <Route path="/signup" component={SignUpForm} />
+
         {/* <Route path="/myInfo" component={UpdateUser} /> */}
         <PrivateRoute path="/user"> user page </PrivateRoute>
 
