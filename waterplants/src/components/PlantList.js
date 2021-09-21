@@ -8,7 +8,7 @@ const PlantList = () => {
   const [plantList, setPlantList] = useState(initialPlantList);
   useEffect(() => {
     axios
-      .get("https://watermyplants01.herokuapp.com/api/plants")
+      .get("https://watermyplants01.herokuapp.com/api/users/1/plants")
       .then((res) => {
         setPlantList(res.data);
       });
