@@ -1,11 +1,22 @@
-import { LOAD_PLANTS, CREATE_PLANT, UPDATE_PLANT, REMOVE_PLANT } from "../actions/index";
+import { LOGIN, LOGOUT, LOAD_PLANTS, CREATE_PLANT, UPDATE_PLANT, REMOVE_PLANT } from "../actions/index";
 
 export const initialState = {
+  user: {},
   plants: []
 };
 
 const reducer = (state, action) => {
   switch (action.type) {
+    case LOGIN:
+      return {
+        ...state,
+        user: action.payload
+      };
+    case LOGOUT:
+      return {
+        ...state,
+        user: ""
+      };
     case LOAD_PLANTS:
       return {
         ...state,

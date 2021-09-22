@@ -4,6 +4,8 @@ import axios from "axios";
 import * as yup from "yup";
 import { useHistory } from "react-router";
 
+import { login } from "../actions";
+
 const initialFormValues = {
   username: "",
   password: ""
@@ -43,8 +45,9 @@ const LoginForm = () => {
       .post("https://watermyplants01.herokuapp.com/api/auth/login", formValues)
       .then((res) => {
         localStorage.setItem("token", res.data.token);
-        localStorage.setItem("user_id", res.data.user_id);
-        push("/plants");
+        // localStorage.setItem("user_id", res.data.user_id);
+        login(res.data.user_id);
+        push("/user");
       })
       .catch((err) => {
         console.error(err);

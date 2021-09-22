@@ -10,6 +10,8 @@ import EditPlant from "./components/EditPlant";
 import PlantList from "./components/PlantList";
 import Home from "./components/Home";
 import Logout from "./components/Logout";
+import EditUser from "./components/EditUser";
+import User from "./components/User";
 
 import "./App.css";
 
@@ -21,7 +23,7 @@ const App = () => {
         <Link to="/login"> Login </Link>
         <Link to="/logout"> Logout </Link>
         <Link to="/signup"> Sign Up </Link>
-        <Link to="/add">Add</Link>
+        <Link to="/addPlant">Add</Link>
       </div>
 
       <Switch>
@@ -30,16 +32,14 @@ const App = () => {
         <Route path="/login" component={LoginForm} />
         <Route path="/logout" component={Logout} />
 
-        {/* <Route path="/myInfo" component={UpdateUser} /> */}
-        <PrivateRoute path="/user"> user page </PrivateRoute>
+        <Route path="/my-info" component={EditUser} />
 
-
-        <Route exact path="/plants" component={PlantList} />
+        {/* <Route exact path="/plants" component={PlantList} /> */}
+        <PrivateRoute path="/user" component={User} />
 
         <Route path="/addPlant" component={CreatePlantForm} />
         <Route path="/plants/update/:id" component={EditPlant} />
         <Route path="/logout" />
-
       </Switch>
     </div>
   );

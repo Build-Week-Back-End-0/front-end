@@ -27,7 +27,6 @@ const CreatePlantForm = (props) => {
     axios
       .post("https://watermyplants01.herokuapp.com/api/plants", { user_id: user, ...newPlant })
       .then((res) => {
-        console.log(res.data);
         setPlants([res.data, ...plants]);
         setFormValues(initialFormValues);
       })
@@ -48,7 +47,6 @@ const CreatePlantForm = (props) => {
     const { name, value } = e.target;
     validate(name, value);
     setFormValues({ ...formValues, [name]: value });
-
   };
 
   const formSubmit = (e) => {

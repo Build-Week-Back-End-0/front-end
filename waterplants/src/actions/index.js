@@ -20,3 +20,10 @@ export const updatePlant = (plantId, plantValues) => {
 export const removePlant = (plantId) => {
   return { type: REMOVE_PLANT, payload: plantId };
 };
+
+export const login = (user) => {
+  return { type: LOGIN, payload: user };
+};
+export const logout = () => {
+  return { type: LOGOUT };
+};
