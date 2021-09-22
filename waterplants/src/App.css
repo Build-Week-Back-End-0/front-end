@@ -27,8 +27,7 @@
 .App-link {
   color: #61dafb;
 }
-
-@keyframes App-logo-spin {
+` @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
   }
@@ -74,4 +73,10 @@
   left: 50%;
   transform: translate(-50%, -50%);
   color: white;
+}
+.login-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
 }
