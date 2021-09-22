@@ -8,8 +8,6 @@ const initialFormErrors = {
   species: "",
   h2oFrequency: "",
 };
-
-const initialPlants = [];
 const initialDisabled = true;
 
 const EditPlant = (prop) => {
