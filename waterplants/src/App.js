@@ -14,6 +14,9 @@ import { createTheme, ThemeProvider } from "@material-ui/core";
 import "./App.css";
 
 const theme = createTheme({
+  textFieldColor: {
+    color: "#FFFFFF",
+  },
   palette: {
     primary: {
       main: "#b5c6bc",

@@ -6,12 +6,12 @@ import * as yup from "yup";
 const initialFormValues = {
   nickname: "",
   species: "",
-  h2oFrequency: ""
+  h2oFrequency: "",
 };
 const initialFormErrors = {
   nickname: "",
   species: "",
-  h2oFrequency: ""
+  h2oFrequency: "",
 };
 const initialPlants = [];
 const initialDisabled = true;
@@ -25,11 +25,15 @@ const CreatePlantForm = (props) => {
   const postNewPlant = (newPlant) => {
     const user = localStorage.getItem("user_id");
     axios
-      .post("https://watermyplants01.herokuapp.com/api/plants", { user_id: user, ...newPlant })
+      .post("https://watermyplants01.herokuapp.com/api/plants", {
+        user_id: user,
+        ...newPlant,
+      })
       .then((res) => {
         console.log(res.data);
         setPlants([res.data, ...plants]);
         setFormValues(initialFormValues);
+        props.history.push("/plants");
       })
       .catch((err) => {
         console.error(err);
@@ -48,7 +52,6 @@ const CreatePlantForm = (props) => {
     const { name, value } = e.target;
     validate(name, value);
     setFormValues({ ...formValues, [name]: value });
-
   };
 
   const formSubmit = (e) => {
@@ -56,7 +59,7 @@ const CreatePlantForm = (props) => {
     const newPlant = {
       nickname: formValues.nickname.trim(),
       species: formValues.species.trim(),
-      h2oFrequency: formValues.h2oFrequency.trim()
+      h2oFrequency: formValues.h2oFrequency.trim(),
     };
     postNewPlant(newPlant);
   };

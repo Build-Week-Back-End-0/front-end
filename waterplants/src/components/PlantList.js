@@ -20,6 +20,7 @@ const PlantList = () => {
 
   return (
     <div>
+      My Plants
       {plantList.map((plant) => {
         return <Plant key={plant.plant_id} details={plant} />;
       })}
