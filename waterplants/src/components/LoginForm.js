@@ -75,6 +75,9 @@ const LoginForm = () => {
             value={formValues.username}
             onChange={onChange}
             color="primary"
+            sx={{
+              color: "primary",
+            }}
             focused
           />
           <TextField
