@@ -30,7 +30,6 @@ const CreatePlantForm = (props) => {
         ...newPlant,
       })
       .then((res) => {
-        console.log(res.data);
         setPlants([res.data, ...plants]);
         setFormValues(initialFormValues);
         props.history.push("/plants");
