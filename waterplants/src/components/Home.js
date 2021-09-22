@@ -18,7 +18,7 @@ const Home = () => {
             Dont Forget To Water Your Plants!
           </Typography>
           <Typography
-            variant="p"
+            variant="h6"
             align="center"
             color="secondary"
             display="block"
