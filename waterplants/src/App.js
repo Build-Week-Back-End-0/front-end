@@ -9,17 +9,12 @@ import EditPlant from "./components/EditPlant";
 import PlantList from "./components/PlantList";
 import Home from "./components/Home";
 import Logout from "./components/Logout";
-
 import EditUser from "./components/EditUser";
 import User from "./components/User";
 import { createTheme, ThemeProvider } from "@material-ui/core";
-
 import "./App.css";
 
 const theme = createTheme({
-  textFieldColor: {
-    color: "#FFFFFF",
-  },
   palette: {
     primary: {
       main: "#b5c6bc",
@@ -27,12 +22,14 @@ const theme = createTheme({
     secondary: {
       main: "#385144",
     },
+    text: {
+      primary: "#b5c6bc",
+    },
   },
 });
 
 const App = () => {
   return (
-
     <ThemeProvider theme={theme}>
       <div className="App">
         <div className="nav-bar">
@@ -64,17 +61,16 @@ const App = () => {
           <Route path="/login" component={LoginForm} />
           <Route path="/logout" component={Logout} />
 
-        <Route path="/my-info" component={EditUser} />
-   
-        {/* <Route exact path="/plants" component={PlantList} /> */}
-        <PrivateRoute path="/user" component={User} />
+          <Route path="/my-info" component={EditUser} />
+
+          {/* <Route exact path="/plants" component={PlantList} /> */}
+          <PrivateRoute path="/user" component={User} />
           <Route path="/addPlant" component={CreatePlantForm} />
           <Route path="/plants/update/:id" component={EditPlant} />
-          <Route path="/logout" />         
+          <Route path="/logout" />
         </Switch>
       </div>
     </ThemeProvider>
-
   );
 };
 
