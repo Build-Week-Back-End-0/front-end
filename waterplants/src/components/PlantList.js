@@ -20,7 +20,7 @@ const PlantList = () => {
 
   return (
     <div>
-      my plants
+      My Plants
       {plantList.map((plant) => {
         return <Plant key={plant.plant_id} details={plant} />;
       })}

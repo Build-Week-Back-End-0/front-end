@@ -3,17 +3,18 @@ import loginSchema from "../validation/loginSchema";
 import axios from "axios";
 import * as yup from "yup";
 import { useHistory } from "react-router";
+import { TextField, Typography, Button } from "@material-ui/core";
 
 import { login } from "../actions";
 
 const initialFormValues = {
   username: "",
-  password: ""
+  password: "",
 };
 
 const initialFormErrors = {
   username: "",
-  password: ""
+  password: "",
 };
 const initialDisabled = true;
 
@@ -36,7 +37,7 @@ const LoginForm = () => {
     // validate(name, value);
     setFormValues({
       ...formValues,
-      [name]: value
+      [name]: value,
     });
   };
   const formSubmit = (e) => {
@@ -59,34 +60,48 @@ const LoginForm = () => {
   }, [formValues]);
 
   return (
-    <form onSubmit={formSubmit}>
-      <h2>Please enter your login information</h2>
-      <div className="errors">
-        <div>{formErrors.username}</div>
-        <div>{formErrors.password}</div>
+    <div className="hero-image">
+      <div className="hero-text">
+        <form className="login-form" onSubmit={formSubmit}>
+          <Typography variant="h2" color="primary">
+            Please enter your login information
+          </Typography>
+
+          <div className="errors">
+            <div>{formErrors.username}</div>
+            <div>{formErrors.password}</div>
+          </div>
+          <TextField
+            name="username"
+            variant="outlined"
+            label="Username:"
+            value={formValues.username}
+            onChange={onChange}
+            color="primary"
+            focused
+          />
+          <TextField
+            name="password"
+            type="password"
+            variant="outlined"
+            label="Password:"
+            value={formValues.password}
+            onChange={onChange}
+            color="primary"
+            focused
+          />
+
+          <Button
+            variant="contained"
+            color="primary"
+            disabled={disabled}
+            onClick={formSubmit}
+          >
+            Login
+          </Button>
+        </form>
       </div>
-      <label>
-        Username:{"  "}
-        <input
-          type="text"
-          name="username"
-          placeholder="Please enter a username"
-          onChange={onChange}
-          value={formValues.username}
-        />
-      </label>
-      <label>
-        Password:{" "}
-        <input
-          type="password"
-          name="password"
-          placeholder="Please enter a password"
-          onChange={onChange}
-          value={formValues.password}
-        />
-      </label>
-      <button disabled={disabled}>Login</button>
-    </form>
+    </div>
   );
 };
 
