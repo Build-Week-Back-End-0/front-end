@@ -18,15 +18,15 @@ const Home = () => {
             Dont Forget To Water Your Plants!
           </Typography>
           <Typography
-            variant="h6"
+            variant="h4"
             align="center"
-            color="secondary"
+            color="primary"
             display="block"
           >
             Let us do the hard work for you
           </Typography>
 
-          <Button variant="contained" onClick={signUpSubmit}>
+          <Button variant="contained" color="primary" onClick={signUpSubmit}>
             Sign Up Now
           </Button>
         </div>

@@ -37,10 +37,12 @@
   }
 }
 
-.App {
+.nav-bar {
+  background-color: ;
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   gap: 50px;
+  background-color: #385144;
 }
 
 .hero-text {
