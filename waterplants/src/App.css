@@ -74,9 +74,15 @@
   transform: translate(-50%, -50%);
   color: white;
 }
-.login-form {
+.text-form {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 20px;
+}
+
+.errors {
+  font-size: 2rem;
+  color: red;
+  font-weight: bold;
 }

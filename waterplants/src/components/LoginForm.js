@@ -61,7 +61,7 @@ const LoginForm = () => {
   return (
     <div className="hero-image">
       <div className="hero-text">
-        <form className="login-form" onSubmit={formSubmit}>
+        <form className="text-form" onSubmit={formSubmit}>
           <Typography variant="h2" color="primary">
             Please enter your login information
           </Typography>
@@ -70,6 +70,7 @@ const LoginForm = () => {
             <div>{formErrors.username}</div>
             <div>{formErrors.password}</div>
           </div>
+
           <TextField
             name="username"
             variant="outlined"
@@ -77,9 +78,6 @@ const LoginForm = () => {
             value={formValues.username}
             onChange={onChange}
             color="primary"
-            inputProps={{
-              color: "primary.main",
-            }}
             focused
           />
           <TextField
