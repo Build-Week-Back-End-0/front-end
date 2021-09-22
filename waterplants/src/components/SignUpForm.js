@@ -3,17 +3,18 @@ import signUpSchema from "../validation/signUpSchema";
 import axios from "axios";
 import * as yup from "yup";
 import { useHistory } from "react-router";
+import { TextField, Typography, Button } from "@material-ui/core";
 
 const initialFormValues = {
   username: "",
   password: "",
-  phone_number: ""
+  phone_number: "",
 };
 
 const initialFormErrors = {
   username: "",
   password: "",
-  phone_number: ""
+  phone_number: "",
 };
 const initialUsers = [];
 
@@ -58,7 +59,7 @@ const SignUpForm = () => {
     const newUser = {
       username: formValues.username.trim(),
       phone_number: formValues.phone_number.trim(),
-      password: formValues.password.trim()
+      password: formValues.password.trim(),
     };
     postNewUser(newUser);
     push("/login");
@@ -68,45 +69,59 @@ const SignUpForm = () => {
   }, [formValues]);
 
   return (
-    <form onSubmit={formSubmit}>
-      <h2>Please enter your information</h2>
-      <div className="error">
-        <div>{formErrors.username}</div>
-        <div>{formErrors.password}</div>
-        <div>{formErrors.phone_number}</div>
+    <div className="hero-image">
+      <div className="hero-text">
+        <form className="text-form" onSubmit={formSubmit}>
+          <Typography variant="h2" color="primary">
+            Please enter your information
+          </Typography>
+
+          <div className="errors">
+            <div>{formErrors.username}</div>
+            <div>{formErrors.password}</div>
+            <div>{formErrors.phone_number}</div>
+          </div>
+
+          <TextField
+            name="username"
+            variant="outlined"
+            label="Username:"
+            value={formValues.username}
+            onChange={onChange}
+            color="primary"
+            focused
+          />
+          <TextField
+            name="phone_number"
+            type="tel"
+            variant="outlined"
+            label="Phone Number:"
+            value={formValues.phone_number}
+            onChange={onChange}
+            color="primary"
+            focused
+          />
+          <TextField
+            name="password"
+            type="password"
+            variant="outlined"
+            label="Password:"
+            value={formValues.password}
+            onChange={onChange}
+            color="primary"
+            focused
+          />
+          <Button
+            variant="contained"
+            color="primary"
+            disabled={disabled}
+            onClick={formSubmit}
+          >
+            Sign Up
+          </Button>
+        </form>
       </div>
-      <label>
-        Username:{" "}
-        <input
-          type="text"
-          name="username"
-          placeholder="Please enter a username"
-          onChange={onChange}
-          value={formValues.username}
-        />
-      </label>
-      <label>
-        Phone Number:{" "}
-        <input
-          type="tel"
-          name="phone_number"
-          placeholder="Please enter your phone number"
-          onChange={onChange}
-          value={formValues.phone_number}
-        />
-      </label>
-      <label>
-        Password:{" "}
-        <input
-          type="text"
-          name="password"
-          placeholder="Please enter a password"
-          onChange={onChange}
-          value={formValues.password}
-        />
-      </label>
-      <button disabled={disabled}>Sign Up!</button>
-    </form>
+    </div>
   );
 };
 
