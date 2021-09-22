@@ -1,24 +1,25 @@
 import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router";
+import { connect } from "react-redux";
 import loginSchema from "../validation/loginSchema";
 import axios from "axios";
 import * as yup from "yup";
-import { useHistory } from "react-router";
 import { TextField, Typography, Button } from "@material-ui/core";
 
 import { login } from "../actions";
 
 const initialFormValues = {
   username: "",
-  password: "",
+  password: ""
 };
 
 const initialFormErrors = {
   username: "",
-  password: "",
+  password: ""
 };
 const initialDisabled = true;
 
-const LoginForm = () => {
+const LoginForm = (props) => {
   const [formValues, setFormValues] = useState(initialFormValues);
   const [formErrors, setFormErrors] = useState(initialFormErrors);
   const [disabled, setDisabled] = useState(initialDisabled);
@@ -37,7 +38,7 @@ const LoginForm = () => {
     // validate(name, value);
     setFormValues({
       ...formValues,
-      [name]: value,
+      [name]: value
     });
   };
   const formSubmit = (e) => {
@@ -47,7 +48,7 @@ const LoginForm = () => {
       .then((res) => {
         localStorage.setItem("token", res.data.token);
         // localStorage.setItem("user_id", res.data.user_id);
-        login(res.data.user_id);
+        props.login(res.data.user_id);
         push("/user");
       })
       .catch((err) => {
@@ -91,12 +92,7 @@ const LoginForm = () => {
             focused
           />
 
-          <Button
-            variant="contained"
-            color="primary"
-            disabled={disabled}
-            onClick={formSubmit}
-          >
+          <Button variant="contained" color="primary" disabled={disabled} onClick={formSubmit}>
             Login
           </Button>
         </form>
@@ -105,4 +101,4 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+export default connect(null, { login })(LoginForm);

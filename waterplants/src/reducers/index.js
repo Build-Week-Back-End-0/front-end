@@ -1,7 +1,7 @@
 import { LOGIN, LOGOUT, LOAD_PLANTS, CREATE_PLANT, UPDATE_PLANT, REMOVE_PLANT } from "../actions/index";
 
 export const initialState = {
-  user: {},
+  user: null,
   plants: []
 };
 

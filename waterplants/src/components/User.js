@@ -1,14 +1,31 @@
 import React, { useState } from "react";
+
+import { Link } from "react-router-dom";
+
 import PlantList from "./PlantList";
-import { useHistory } from "react-router";
 
 const User = () => {
-  const { push } = useHistory();
+  const [isDropDown, setIsDropDown] = useState(false);
 
   return (
     <div>
-      <button onClick={() => push("/my-info")}>Edit My Info</button>
-      <button onClick={() => push("/logout")}>Logout</button>
+      <div onMouseLeave={() => setIsDropDown(false)}>
+        <button onMouseOver={() => setIsDropDown(true)}>
+          <div>
+            <span>My Account</span>
+          </div>
+        </button>
+        {isDropDown && (
+          <div>
+            <div>
+              <Link to="/my-info">Edit My Info</Link>
+            </div>
+            <div>
+              <Link to="/logout">Logout</Link>
+            </div>
+          </div>
+        )}
+      </div>
 
       <PlantList />
     </div>
