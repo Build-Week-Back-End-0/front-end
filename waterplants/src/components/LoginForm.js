@@ -4,7 +4,6 @@ import axios from "axios";
 import * as yup from "yup";
 import { useHistory } from "react-router";
 import { TextField, Typography, Button } from "@material-ui/core";
-
 import { login } from "../actions";
 
 const initialFormValues = {
@@ -78,6 +77,9 @@ const LoginForm = () => {
             value={formValues.username}
             onChange={onChange}
             color="primary"
+            inputProps={{
+              color: "primary.main",
+            }}
             focused
           />
           <TextField
