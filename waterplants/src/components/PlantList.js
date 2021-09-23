@@ -10,20 +10,25 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Paper
+  Paper,
 } from "@material-ui/core";
 
 import axios from "axios";
 import Plant from "./Plant";
 import { getCurrentPlants } from "../actions";
 
+const dummyData = [
+  { nickname: "Steve", species: "Rose", h2oFrequency: "2", user_id: 8 },
+  { nickname: "Bob", species: "Weeds", h2oFrequency: "0", user_id: 8 },
+];
+
 const PlantList = (props) => {
   const { push } = useHistory();
   const { user_id, plants, getCurrentPlants } = props;
 
-  useEffect(() => {
-    getCurrentPlants(user_id);
-  }, []);
+  // useEffect(() => {
+  //   getCurrentPlants(user_id);
+  // }, []);
 
   const handleAdd = () => {
     push("/addPlant");
@@ -44,14 +49,16 @@ const PlantList = (props) => {
             <TableRow>
               <TableCell style={{ color: "black" }}>Name</TableCell>
               <TableCell style={{ color: "black" }}>Species</TableCell>
-              <TableCell style={{ color: "black" }}>Watering Frequency (Days)</TableCell>
+              <TableCell style={{ color: "black" }}>
+                Watering Frequency (Days)
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
+            {console.log("is this an array?", props.plants)}
             {plants.map((plant) => {
               return <Plant key={plant.plant_id} details={plant} />;
             })}
-            {/* {console.log("is this an array?", plants)} */}
           </TableBody>
         </Table>
       </TableContainer>
@@ -62,7 +69,7 @@ const PlantList = (props) => {
 const mapStateToProps = (state) => {
   return {
     user_id: state.user,
-    plants: state.plants
+    plants: state.plants,
   };
 };
 

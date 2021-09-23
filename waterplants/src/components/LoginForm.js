@@ -5,16 +5,16 @@ import loginSchema from "../validation/loginSchema";
 import axios from "axios";
 import * as yup from "yup";
 import { TextField, Typography, Button } from "@material-ui/core";
-import { login } from "../actions";
+import { login, getCurrentPlants } from "../actions";
 
 const initialFormValues = {
   username: "",
-  password: ""
+  password: "",
 };
 
 const initialFormErrors = {
   username: "",
-  password: ""
+  password: "",
 };
 const initialDisabled = true;
 
@@ -39,7 +39,7 @@ const LoginForm = (props) => {
     validate(name, value);
     setFormValues({
       ...formValues,
-      [name]: value
+      [name]: value,
     });
   };
   const formSubmit = (e) => {
@@ -50,6 +50,8 @@ const LoginForm = (props) => {
         localStorage.setItem("token", res.data.token);
         // localStorage.setItem("user_id", res.data.user_id);
         login(res.data.user_id);
+        props.getCurrentPlants(res.data.user_id);
+
         push("/user");
       })
       .catch((err) => {
@@ -94,7 +96,12 @@ const LoginForm = (props) => {
             focused
           />
 
-          <Button variant="contained" color="primary" disabled={disabled} onClick={formSubmit}>
+          <Button
+            variant="contained"
+            color="primary"
+            disabled={disabled}
+            onClick={formSubmit}
+          >
             Login
           </Button>
         </form>
@@ -103,4 +110,4 @@ const LoginForm = (props) => {
   );
 };
 
-export default connect(null, { login })(LoginForm);
+export default connect(null, { login, getCurrentPlants })(LoginForm);
