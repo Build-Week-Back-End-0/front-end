@@ -2,6 +2,15 @@ import React, { useState, useEffect } from "react";
 import plantSchema from "../validation/plantSchema";
 import axios from "axios";
 import * as yup from "yup";
+import {
+  TextField,
+  Typography,
+  Button,
+  Select,
+  MenuItem,
+  FormControl,
+  FormHelperText,
+} from "@material-ui/core";
 
 const initialFormErrors = {
   nickname: "",
@@ -56,53 +65,75 @@ const EditPlant = (prop) => {
     const newPlant = {
       nickname: formValues.nickname.trim(),
       species: formValues.species.trim(),
-      h2oFrequency: formValues.h2oFrequency.trim(),
+      h2oFrequency: formValues.h2oFrequency,
     };
     postNewPlant(newPlant);
+    prop.history.push("/user");
   };
   useEffect(() => {
     plantSchema.isValid(formValues).then((valid) => setDisabled(!valid));
   }, [formValues]);
   return (
-    <form onSubmit={formSubmit}>
-      <h2>Add A New Plant</h2>
-      <div className="errors">
-        <div>{formErrors.nickname}</div>
-        <div>{formErrors.species}</div>
-        <div>{formErrors.h2oFrequency}</div>
+    <div className="hero-image">
+      <div className="hero-text">
+        <form className="text-form" onSubmit={formSubmit}>
+          <Typography variant="h2" color="primary">
+            Add a New Plant
+          </Typography>
+          <div className="errors">
+            <div>{formErrors.nickname}</div>
+            <div>{formErrors.species}</div>
+            <div>{formErrors.h2oFrequency}</div>
+          </div>
+          <TextField
+            name="nickname"
+            variant="outlined"
+            label="Plant Name:"
+            value={formValues.nickname}
+            onChange={onChange}
+            color="primary"
+            focused
+          />
+          <TextField
+            name="species"
+            variant="outlined"
+            label="What Species is the Plant?"
+            value={formValues.species}
+            onChange={onChange}
+            color="primary"
+            focused
+          />
+          <Typography variant="h5" color="primary">
+            Watering Frequency
+          </Typography>
+          <FormControl>
+            <FormHelperText>Freq.</FormHelperText>
+
+            <Select
+              focused
+              variant="filled"
+              name="h2oFrequency"
+              onChange={onChange}
+              label="--Select an Option--"
+            >
+              {/* <MenuItem value={""}>--Select an Option--</MenuItem> */}
+              <MenuItem value={1}>Everyday</MenuItem>
+              <MenuItem value={3}>Every three days</MenuItem>
+              <MenuItem value={5}>Every five days</MenuItem>
+              <MenuItem value={7}>Once a week</MenuItem>
+            </Select>
+          </FormControl>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={formSubmit}
+            disabled={disabled}
+          >
+            Submit
+          </Button>
+        </form>
       </div>
-      <label>
-        Name:
-        <input
-          name="nickname"
-          type="text"
-          placeholder="Add A Nickname"
-          onChange={onChange}
-          value={formValues.nickname}
-        />
-      </label>
-      <label>
-        What is the plants species?
-        <input
-          type="text"
-          name="species"
-          placeholder="What is the plant species"
-          onChange={onChange}
-          value={formValues.species}
-        />
-      </label>
-      <label>
-        How often do you water your plant?
-        <select>
-          <option value="">--Select an Option--</option>
-          <option value="1">Everyday</option>
-          <option value="3">Every three days</option>
-          <option value="5">Every five days</option>
-          <option value="7">Once a week</option>
-        </select>
-      </label>
-      <button disabled={disabled}>Submit</button>
-    </form>
+    </div>
   );
 };
 
