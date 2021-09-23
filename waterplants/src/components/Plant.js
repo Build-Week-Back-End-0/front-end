@@ -1,4 +1,6 @@
-import React from "react";
+import { getThemeProps } from "@material-ui/styles";
+import React, { useState } from "react";
+import { connect } from "react-redux";
 import { useHistory } from "react-router";
 import {
   Typography,
@@ -9,17 +11,34 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Paper,
+  Paper
 } from "@material-ui/core";
 
-const Plant = ({ details }) => {
+import { deletePlant } from "../actions";
+
+const Plant = (props) => {
+  const { details } = props;
+  const [confirmDelete, setConfirmDelete] = useState(false);
   const { push } = useHistory();
-  const plantEdit = () =>
-    push(`/plants/update/${details.plant_id}`, { plant: details });
+  const plantEdit = () => push(`/plants/update/${details.plant_id}`, { plant: details });
 
   if (!details) {
     return <h3>Working on fetching your User&apos;s details</h3>;
   }
+
+  const handleDelete = () => {
+    setConfirmDelete(true);
+  };
+
+  const handleYes = () => {
+    props.deletePlant(details.plant_id);
+    setConfirmDelete(false);
+    push("/user");
+  };
+
+  const handleNo = () => {
+    setConfirmDelete(false);
+  };
 
   return (
     <TableRow>
@@ -29,7 +48,30 @@ const Plant = ({ details }) => {
         {details.h2oFrequency}
       </TableCell>
     </TableRow>
+
+    // <div>
+    //   <h2>{details.nickname}</h2>
+    //   <div>
+    //     {details.image && <img href={details.image} alt={details.nickname} />}
+    //     <div>
+    //       <h4> {details.species}</h4>
+    //       {details.h2oFrequency}
+    //     </div>
+    //   </div>
+    //   {!confirmDelete ? (
+    //     <div>
+    //       <button onClick={plantEdit}>Edit</button>
+    //       <button onClick={handleDelete}>Delete</button>
+    //     </div>
+    //   ) : (
+    //     <div>
+    //       <h2>Are you sure you want to remove this plant?</h2>
+    //       <button onClick={handleYes}>Yes</button>
+    //       <button onClick={handleNo}>No</button>
+    //     </div>
+    //   )}
+    // </div>
   );
 };
 
-export default Plant;
+export default connect(null, { deletePlant })(Plant);

@@ -1,7 +1,7 @@
 import { LOGIN, LOGOUT, LOAD_PLANTS, CREATE_PLANT, UPDATE_PLANT, REMOVE_PLANT } from "../actions/index";
 
 export const initialState = {
-  user: null,
+  user: "",
   plants: []
 };
 
@@ -31,7 +31,7 @@ const reducer = (state, action) => {
       return {
         ...state,
         plants: state.plants.map((plant) => {
-          if (action.payload.id !== plant.id) {
+          if (action.payload !== plant.id) {
             return plant;
           } else {
             return action.payload.values;

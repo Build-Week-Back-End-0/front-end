@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import plantSchema from "../validation/plantSchema";
-import axios from "axios";
+
 import * as yup from "yup";
 import {
   TextField,
@@ -36,6 +36,8 @@ const CreatePlantForm = (props) => {
   const [formValues, setFormValues] = useState(initialFormValues);
   const [formErrors, setFormErrors] = useState(initialFormErrors);
   const [disabled, setDisabled] = useState(initialDisabled);
+
+  const { addPlant } = props;
 
   // const postNewPlant = (newPlant) => {
   //   const user = localStorage.getItem("user_id");
@@ -74,10 +76,10 @@ const CreatePlantForm = (props) => {
     const newPlant = {
       nickname: formValues.nickname.trim(),
       species: formValues.species.trim(),
-      h2oFrequency: formValues.h2oFrequency.trim()
+      h2oFrequency: formValues.h2oFrequency
     };
     // postNewPlant(newPlant);
-    props.addPlant(newPlant, props.user_id);
+    addPlant(newPlant, props.user_id);
     push("/user");
   };
 

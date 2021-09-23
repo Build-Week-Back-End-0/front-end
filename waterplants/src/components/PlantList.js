@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { useHistory } from "react-router";
 import {
@@ -10,29 +10,19 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Paper,
+  Paper
 } from "@material-ui/core";
 
 import axios from "axios";
 import Plant from "./Plant";
-
-const initialPlantList = [];
+import { getCurrentPlants } from "../actions";
 
 const PlantList = (props) => {
   const { push } = useHistory();
-  const { user_id } = props;
+  const { user_id, plants, getCurrentPlants } = props;
 
-  // const user = localStorage.getItem("user_id");
-  const [plantList, setPlantList] = useState(initialPlantList);
   useEffect(() => {
-    axios
-      .get(`https://watermyplants01.herokuapp.com/api/users/${user_id}/plants`)
-      .then((res) => {
-        setPlantList(res.data);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+    getCurrentPlants(user_id);
   }, []);
 
   const handleAdd = () => {
@@ -54,15 +44,14 @@ const PlantList = (props) => {
             <TableRow>
               <TableCell style={{ color: "black" }}>Name</TableCell>
               <TableCell style={{ color: "black" }}>Species</TableCell>
-              <TableCell style={{ color: "black" }}>
-                Watering Frequency (Days)
-              </TableCell>
+              <TableCell style={{ color: "black" }}>Watering Frequency (Days)</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {plantList.map((plant) => {
+            {plants.map((plant) => {
               return <Plant key={plant.plant_id} details={plant} />;
             })}
+            {/* {console.log("is this an array?", plants)} */}
           </TableBody>
         </Table>
       </TableContainer>
@@ -71,8 +60,10 @@ const PlantList = (props) => {
 };
 
 const mapStateToProps = (state) => {
-  console.log(state);
-  return { user_id: state.user };
+  return {
+    user_id: state.user,
+    plants: state.plants
+  };
 };
 
-export default connect(mapStateToProps)(PlantList);
+export default connect(mapStateToProps, { getCurrentPlants })(PlantList);

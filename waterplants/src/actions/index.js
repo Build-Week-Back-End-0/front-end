@@ -15,7 +15,37 @@ export const addPlant = (newPlant, user) => {
         ...newPlant
       })
       .then((res) => {
+        // console.log(res.data);
         dispatch(createPlant(res.data));
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
+};
+
+export const deletePlant = (plant_id) => {
+  return (dispatch) => {
+    axiosWithAuth()
+      .delete(`/plants/${plant_id}`)
+      .then((res) => {
+        // console.log(plant_id);
+        dispatch(removePlant(plant_id));
+      })
+      .catch((err) => {
+        console.error(err);
+        console.log("deleting: ", plant_id);
+      });
+  };
+};
+
+export const getCurrentPlants = (user_id) => {
+  return async (dispatch) => {
+    axiosWithAuth()
+      .get(`/users/${user_id}/plants`)
+      .then((res) => {
+        // console.log(res);
+        dispatch(loadPlants(res.data));
       })
       .catch((err) => {
         console.error(err);
