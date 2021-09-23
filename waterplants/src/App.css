@@ -90,3 +90,6 @@
 .h2o-drop-down {
   color: #b5c6bc;
 }
+.account-drop-down button {
+  width: 100%;
+}

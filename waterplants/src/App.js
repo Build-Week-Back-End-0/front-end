@@ -50,8 +50,8 @@ const App = () => {
           <Button color="primary" component={Link} to="/signup">
             Sign Up
           </Button>
-          <Button color="primary" component={Link} to="/addPlant">
-            Add Plant
+          <Button color="primary" component={Link} to="/user">
+            My Plants
           </Button>
         </div>
 
