@@ -1,5 +1,16 @@
 import React from "react";
 import { useHistory } from "react-router";
+import {
+  Typography,
+  Button,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+} from "@material-ui/core";
 
 const Plant = ({ details }) => {
   const { push } = useHistory();
@@ -11,13 +22,13 @@ const Plant = ({ details }) => {
   }
 
   return (
-    <div>
-      <h2>
-        {details.nickname} {details.species} {details.h2oFrequency}
-      </h2>
-      <button>Delete</button>
-      <button onClick={plantEdit}>Edit</button>
-    </div>
+    <TableRow>
+      <TableCell style={{ color: "black" }}>{details.nickname}</TableCell>
+      <TableCell style={{ color: "black" }}>{details.species}</TableCell>
+      <TableCell style={{ color: "black" }} align="center">
+        {details.h2oFrequency}
+      </TableCell>
+    </TableRow>
   );
 };
 

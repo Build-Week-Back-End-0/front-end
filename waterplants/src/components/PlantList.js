@@ -1,7 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { useHistory } from "react-router";
-import { Typography, Button } from "@material-ui/core";
+import {
+  Typography,
+  Button,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+} from "@material-ui/core";
 
 import axios from "axios";
 import Plant from "./Plant";
@@ -30,16 +40,32 @@ const PlantList = (props) => {
   };
 
   return (
-    <div className="plant-container">
-      <Button variant="contained" onClick={handleAdd}>
+    <div className="plant-list-container">
+      <Button variant="contained" color="primary" onClick={handleAdd}>
         Add a plant
       </Button>
       <Typography variant="h3" color="primary">
         My Plants
       </Typography>
-      {plantList.map((plant) => {
-        return <Plant key={plant.plant_id} details={plant} />;
-      })}
+
+      <TableContainer component={Paper}>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell style={{ color: "black" }}>Name</TableCell>
+              <TableCell style={{ color: "black" }}>Species</TableCell>
+              <TableCell style={{ color: "black" }}>
+                Watering Frequency (Days)
+              </TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {plantList.map((plant) => {
+              return <Plant key={plant.plant_id} details={plant} />;
+            })}
+          </TableBody>
+        </Table>
+      </TableContainer>
     </div>
   );
 };
