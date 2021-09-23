@@ -93,3 +93,13 @@
 .account-drop-down button {
   width: 100%;
 }
+.plant-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 50px;
+}
+.plant-container button {
+  width: 75%;
+}
