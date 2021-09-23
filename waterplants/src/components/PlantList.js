@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { useHistory } from "react-router";
+import { Typography, Button } from "@material-ui/core";
 
 import axios from "axios";
 import Plant from "./Plant";
@@ -29,9 +30,13 @@ const PlantList = (props) => {
   };
 
   return (
-    <div>
-      <button onClick={handleAdd}>Add a plant</button>
-      My Plants
+    <div className="plant-container">
+      <Button variant="contained" onClick={handleAdd}>
+        Add a plant
+      </Button>
+      <Typography variant="h3" color="primary">
+        My Plants
+      </Typography>
       {plantList.map((plant) => {
         return <Plant key={plant.plant_id} details={plant} />;
       })}
