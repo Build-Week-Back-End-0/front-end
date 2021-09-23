@@ -1,9 +1,57 @@
+import axiosWithAuth from "../utils/axiosWithAuth";
+
 export const LOGIN = "LOGIN";
 export const LOGOUT = "LOGOUT";
 export const LOAD_PLANTS = "LOAD_PLANTS";
 export const CREATE_PLANT = "CREATE_PLANT";
 export const UPDATE_PLANT = "UPDATE_PLANT";
 export const REMOVE_PLANT = "REMOVE_PLANT";
+
+export const addPlant = (newPlant, user) => {
+  return (dispatch) => {
+    axiosWithAuth()
+      .post("/plants", {
+        user_id: user,
+        ...newPlant
+      })
+      .then((res) => {
+        // console.log(res.data);
+        dispatch(createPlant(res.data));
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
+};
+
+export const deletePlant = (plant_id) => {
+  return (dispatch) => {
+    axiosWithAuth()
+      .delete(`/plants/${plant_id}`)
+      .then((res) => {
+        // console.log(plant_id);
+        dispatch(removePlant(plant_id));
+      })
+      .catch((err) => {
+        console.error(err);
+        console.log("deleting: ", plant_id);
+      });
+  };
+};
+
+export const getCurrentPlants = (user_id) => {
+  return async (dispatch) => {
+    axiosWithAuth()
+      .get(`/users/${user_id}/plants`)
+      .then((res) => {
+        // console.log(res);
+        dispatch(loadPlants(res.data));
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
+};
 
 export const loadPlants = (plants) => {
   return { type: LOAD_PLANTS, payload: plants };

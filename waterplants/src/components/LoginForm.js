@@ -24,6 +24,8 @@ const LoginForm = (props) => {
   const [disabled, setDisabled] = useState(initialDisabled);
   const { push } = useHistory();
 
+  const { login } = props;
+
   const validate = (name, value) => {
     yup
       .reach(loginSchema, name)
@@ -34,7 +36,7 @@ const LoginForm = (props) => {
 
   const onChange = (e) => {
     const { name, value } = e.target;
-    // validate(name, value);
+    validate(name, value);
     setFormValues({
       ...formValues,
       [name]: value
@@ -47,7 +49,7 @@ const LoginForm = (props) => {
       .then((res) => {
         localStorage.setItem("token", res.data.token);
         // localStorage.setItem("user_id", res.data.user_id);
-        props.login(res.data.user_id);
+        login(res.data.user_id);
         push("/user");
       })
       .catch((err) => {

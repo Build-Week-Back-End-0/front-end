@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
 import plantSchema from "../validation/plantSchema";
-import axios from "axios";
+
 import * as yup from "yup";
 import {
   TextField,
@@ -10,45 +11,52 @@ import {
   MenuItem,
   FormControl,
   FormHelperText,
-  FormLabel,
+  FormLabel
 } from "@material-ui/core";
+
+import { addPlant } from "../actions";
+import { useHistory } from "react-router";
 
 const initialFormValues = {
   nickname: "",
   species: "",
-  h2oFrequency: "",
+  h2oFrequency: ""
 };
 const initialFormErrors = {
   nickname: "",
   species: "",
-  h2oFrequency: "",
+  h2oFrequency: ""
 };
 const initialPlants = [];
 const initialDisabled = true;
 
 const CreatePlantForm = (props) => {
-  const [plants, setPlants] = useState(initialPlants);
+  const { push } = useHistory();
+  // const [plants, setPlants] = useState(initialPlants);
   const [formValues, setFormValues] = useState(initialFormValues);
   const [formErrors, setFormErrors] = useState(initialFormErrors);
   const [disabled, setDisabled] = useState(initialDisabled);
 
-  const postNewPlant = (newPlant) => {
-    const user = localStorage.getItem("user_id");
-    axios
-      .post("https://watermyplants01.herokuapp.com/api/plants", {
-        user_id: user,
-        ...newPlant,
-      })
-      .then((res) => {
-        setPlants([res.data, ...plants]);
-        setFormValues(initialFormValues);
-        props.history.push("/plants");
-      })
-      .catch((err) => {
-        console.error(err);
-        setFormValues(initialFormValues);
-      });
-  };
+  const { addPlant } = props;
+
+  // const postNewPlant = (newPlant) => {
+  //   const user = localStorage.getItem("user_id");
+  //   axios
+  //     .post("https://watermyplants01.herokuapp.com/api/plants", {
+  //       user_id: user,
+  //       ...newPlant,
+  //     })
+  //     .then((res) => {
+  //       setPlants([res.data, ...plants]);
+  //       setFormValues(initialFormValues);
+  //       props.history.push("/plants");
+  //     })
+  //     .catch((err) => {
+  //       console.error(err);
+  //       setFormValues(initialFormValues);
+  //     });
+  // };
+
   const validate = (name, value) => {
     yup
       .reach(plantSchema, name)
@@ -68,14 +76,17 @@ const CreatePlantForm = (props) => {
     const newPlant = {
       nickname: formValues.nickname.trim(),
       species: formValues.species.trim(),
-      h2oFrequency: formValues.h2oFrequency,
+      h2oFrequency: formValues.h2oFrequency
     };
-    postNewPlant(newPlant);
-    props.history.push("/user");
+    // postNewPlant(newPlant);
+    addPlant(newPlant, props.user_id);
+    push("/user");
   };
+
   useEffect(() => {
     plantSchema.isValid(formValues).then((valid) => setDisabled(!valid));
   }, [formValues]);
+
   return (
     <div className="hero-image">
       <div className="hero-text">
@@ -112,13 +123,7 @@ const CreatePlantForm = (props) => {
           <FormControl>
             <FormHelperText>Freq.</FormHelperText>
 
-            <Select
-              focused
-              variant="filled"
-              name="h2oFrequency"
-              onChange={onChange}
-              label="--Select an Option--"
-            >
+            <Select focused variant="filled" name="h2oFrequency" onChange={onChange} label="--Select an Option--">
               {/* <MenuItem value={""}>--Select an Option--</MenuItem> */}
               <MenuItem value={1}>Everyday</MenuItem>
               <MenuItem value={3}>Every three days</MenuItem>
@@ -126,12 +131,7 @@ const CreatePlantForm = (props) => {
               <MenuItem value={7}>Once a week</MenuItem>
             </Select>
           </FormControl>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={formSubmit}
-            disabled={disabled}
-          >
+          <Button variant="contained" color="primary" onClick={formSubmit} disabled={disabled}>
             Submit
           </Button>
         </form>
@@ -140,4 +140,10 @@ const CreatePlantForm = (props) => {
   );
 };
 
-export default CreatePlantForm;
+const mapStateToProps = (state) => {
+  return {
+    user_id: state.user
+  };
+};
+
+export default connect(mapStateToProps, { addPlant })(CreatePlantForm);
