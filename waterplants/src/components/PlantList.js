@@ -11,7 +11,6 @@ import {
   TableHead,
   TableRow,
   Paper,
-  Box,
 } from "@material-ui/core";
 
 import Plant from "./Plant";
