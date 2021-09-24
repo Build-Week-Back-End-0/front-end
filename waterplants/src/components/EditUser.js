@@ -18,8 +18,7 @@ const EditUser = () => {
       .get(`/users/`)
       .then((res) => {
         setUserInfo({
-          ...userInfo,
-          phone_number: res.data.phone_number,
+          phone_number: res.data.phone_number
         });
       })
       .catch((err) => {
