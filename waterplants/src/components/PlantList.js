@@ -10,7 +10,8 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Paper
+  Paper,
+  Box,
 } from "@material-ui/core";
 
 import Plant from "./Plant";
@@ -50,7 +51,9 @@ const PlantList = (props) => {
             <TableRow>
               <TableCell style={{ color: "black" }}>Name</TableCell>
               <TableCell style={{ color: "black" }}>Species</TableCell>
-              <TableCell style={{ color: "black" }}>Watering Frequency (Days)</TableCell>
+              <TableCell style={{ color: "black" }}>
+                Watering Frequency (Days)
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -68,7 +71,7 @@ const PlantList = (props) => {
 const mapStateToProps = (state) => {
   return {
     // user_id: state.user,
-    plants: state.plants
+    plants: state.plants,
   };
 };
 

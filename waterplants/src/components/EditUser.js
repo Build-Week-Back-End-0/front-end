@@ -6,7 +6,7 @@ import axiosWithAuth from "../utils/axiosWithAuth";
 
 const initialUserInfo = {
   password: "",
-  phone_number: ""
+  phone_number: "",
 };
 
 const EditUser = () => {
@@ -29,7 +29,7 @@ const EditUser = () => {
   const handleChange = (e) => {
     setUserInfo({
       ...userInfo,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
@@ -57,7 +57,12 @@ const EditUser = () => {
         {/* <div>username</div>  -- need username back from the server on login */}
         <div>
           <label htmlFor="phone_number">phone number</label>
-          <input type="phone" name="phone_number" value={userInfo.phone_number} onChange={handleChange} />
+          <input
+            type="phone"
+            name="phone_number"
+            value={userInfo.phone_number}
+            onChange={handleChange}
+          />
         </div>
         {/* <div>
           <label htmlFor="password">new password</label>
