@@ -11,7 +11,7 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Paper
+  Paper,
 } from "@material-ui/core";
 
 import { deletePlant } from "../actions";
@@ -20,7 +20,8 @@ const Plant = (props) => {
   const { details } = props;
   const [confirmDelete, setConfirmDelete] = useState(false);
   const { push } = useHistory();
-  const plantEdit = () => push(`/plants/update/${details.plant_id}`, { plant: details });
+  const plantEdit = () =>
+    push(`/plants/update/${details.plant_id}`, { plant: details });
 
   if (!details) {
     return <h3>Working on fetching your User&apos;s details</h3>;
@@ -46,6 +47,17 @@ const Plant = (props) => {
       <TableCell style={{ color: "black" }}>{details.species}</TableCell>
       <TableCell style={{ color: "black" }} align="center">
         {details.h2oFrequency}
+      </TableCell>
+
+      <TableCell>
+        <Button color="secondary" onClick={plantEdit}>
+          Edit
+        </Button>
+      </TableCell>
+      <TableCell>
+        <Button color="secondary" onClick={handleYes}>
+          Delete
+        </Button>
       </TableCell>
     </TableRow>
 
