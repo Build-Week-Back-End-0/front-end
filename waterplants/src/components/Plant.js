@@ -1,17 +1,18 @@
-import { getThemeProps } from "@material-ui/styles";
+// import { getThemeProps } from "@material-ui/styles";
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { useHistory } from "react-router";
 import {
-  Typography,
+  // Typography,
   Button,
-  Table,
-  TableBody,
+  // Table,
+  // TableBody,
   TableCell,
   TableContainer,
-  TableHead,
+  // TableHead,
   TableRow,
-  Paper,
+  TextField
+  // Paper
 } from "@material-ui/core";
 
 import { deletePlant } from "../actions";
@@ -20,8 +21,7 @@ const Plant = (props) => {
   const { details } = props;
   const [confirmDelete, setConfirmDelete] = useState(false);
   const { push } = useHistory();
-  const plantEdit = () =>
-    push(`/plants/update/${details.plant_id}`, { plant: details });
+  const plantEdit = () => push(`/plants/update/${details.plant_id}`, { plant: details });
 
   if (!details) {
     return <h3>Working on fetching your User&apos;s details</h3>;
@@ -42,25 +42,33 @@ const Plant = (props) => {
   };
 
   return (
-    <TableRow>
-      <TableCell style={{ color: "black" }}>{details.nickname}</TableCell>
-      <TableCell style={{ color: "black" }}>{details.species}</TableCell>
-      <TableCell style={{ color: "black" }} align="center">
-        {details.h2oFrequency}
-      </TableCell>
+    <TableContainer>
+      <TableRow>
+        <TableCell style={{ color: "black" }}>{details.nickname}</TableCell>
+        <TableCell style={{ color: "black" }}>{details.species}</TableCell>
+        <TableCell style={{ color: "black" }} align="center">
+          {details.h2oFrequency}
+        </TableCell>
 
-      <TableCell>
-        <Button color="secondary" onClick={plantEdit}>
-          Edit
-        </Button>
-      </TableCell>
-      <TableCell>
-        <Button color="secondary" onClick={handleYes}>
-          Delete
-        </Button>
-      </TableCell>
-    </TableRow>
-
+        <TableCell>
+          <Button color="secondary" onClick={plantEdit}>
+            Edit
+          </Button>
+        </TableCell>
+        <TableCell>
+          <Button color="secondary" onClick={handleDelete}>
+            Delete
+          </Button>
+        </TableCell>
+      </TableRow>
+      {confirmDelete && (
+        <TextField>
+          <h2>Are you sure you want to remove this plant?</h2>
+          <Button onClick={handleYes}>Yes</Button>
+          <Button onClick={handleNo}>No</Button>
+        </TextField>
+      )}
+    </TableContainer>
     // <div>
     //   <h2>{details.nickname}</h2>
     //   <div>
@@ -70,6 +78,7 @@ const Plant = (props) => {
     //       {details.h2oFrequency}
     //     </div>
     //   </div>
+
     //   {!confirmDelete ? (
     //     <div>
     //       <button onClick={plantEdit}>Edit</button>
@@ -82,6 +91,7 @@ const Plant = (props) => {
     //       <button onClick={handleNo}>No</button>
     //     </div>
     //   )}
+
     // </div>
   );
 };

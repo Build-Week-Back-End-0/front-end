@@ -1,11 +1,21 @@
-import { LOGIN, LOGOUT, LOAD_PLANTS, CREATE_PLANT, UPDATE_PLANT, REMOVE_PLANT } from "../actions/index";
+import {
+  LOGIN,
+  LOGOUT,
+  LOAD_PLANTS,
+  CREATE_PLANT,
+  // GET_PLANT,
+  UPDATE_PLANT,
+  // GET_USER,
+  // UPDATE_USER,
+  REMOVE_PLANT
+} from "../actions/index";
 
 export const initialState = {
-  user: "",
+  user: {},
   plants: []
 };
 
-const reducer = (state, action) => {
+const reducer = (state = initialState, action) => {
   switch (action.type) {
     case LOGIN:
       return {

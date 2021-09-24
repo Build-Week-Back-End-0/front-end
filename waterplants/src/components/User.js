@@ -3,7 +3,10 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 import PlantList from "./PlantList";
-import { Typography, Button } from "@material-ui/core";
+import {
+  // Typography,
+  Button
+} from "@material-ui/core";
 const User = () => {
   const [isDropDown, setIsDropDown] = useState(false);
 
@@ -11,15 +14,8 @@ const User = () => {
     <div className="hero-image">
       <div className="hero-text">
         {/* <div> */}
-        <div
-          className="account-drop-down"
-          onMouseLeave={() => setIsDropDown(false)}
-        >
-          <Button
-            color="primary"
-            variant="contained"
-            onMouseOver={() => setIsDropDown(true)}
-          >
+        <div className="account-drop-down" onMouseLeave={() => setIsDropDown(false)}>
+          <Button color="primary" variant="contained" onMouseOver={() => setIsDropDown(true)}>
             My Account
           </Button>
           {isDropDown && (

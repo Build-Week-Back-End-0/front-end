@@ -5,16 +5,16 @@ import loginSchema from "../validation/loginSchema";
 import axios from "axios";
 import * as yup from "yup";
 import { TextField, Typography, Button } from "@material-ui/core";
-import { login, getCurrentPlants } from "../actions";
+import { getCurrentPlants } from "../actions";
 
 const initialFormValues = {
   username: "",
-  password: "",
+  password: ""
 };
 
 const initialFormErrors = {
   username: "",
-  password: "",
+  password: ""
 };
 const initialDisabled = true;
 
@@ -24,7 +24,12 @@ const LoginForm = (props) => {
   const [disabled, setDisabled] = useState(initialDisabled);
   const { push } = useHistory();
 
-  const { login } = props;
+  // const user_id = localStorage.getItem("user_id");
+  // const { getCurrentPlants } = props;
+
+  // useEffect(() => {
+  //   getCurrentPlants(user_id);
+  // }, []);
 
   const validate = (name, value) => {
     yup
@@ -39,7 +44,7 @@ const LoginForm = (props) => {
     validate(name, value);
     setFormValues({
       ...formValues,
-      [name]: value,
+      [name]: value
     });
   };
   const formSubmit = (e) => {
@@ -48,9 +53,9 @@ const LoginForm = (props) => {
       .post("https://watermyplants01.herokuapp.com/api/auth/login", formValues)
       .then((res) => {
         localStorage.setItem("token", res.data.token);
-        // localStorage.setItem("user_id", res.data.user_id);
-        login(res.data.user_id);
-        props.getCurrentPlants(res.data.user_id);
+        localStorage.setItem("user_id", res.data.user_id);
+        // login(res.data.user_id);
+        // props.getCurrentPlants(res.data.user_id);
 
         push("/user");
       })
@@ -96,12 +101,7 @@ const LoginForm = (props) => {
             focused
           />
 
-          <Button
-            variant="contained"
-            color="primary"
-            disabled={disabled}
-            onClick={formSubmit}
-          >
+          <Button variant="contained" color="primary" disabled={disabled} onClick={formSubmit}>
             Login
           </Button>
         </form>
@@ -110,4 +110,4 @@ const LoginForm = (props) => {
   );
 };
 
-export default connect(null, { login, getCurrentPlants })(LoginForm);
+export default connect(null, { getCurrentPlants })(LoginForm);
