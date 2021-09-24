@@ -12,17 +12,12 @@ const Home = () => {
 
   return (
     <div>
-      <div class="hero-image">
-        <div class="hero-text">
+      <div className="hero-image">
+        <div className="hero-text">
           <Typography variant="h2" color="primary" align="center">
             Dont Forget To Water Your Plants!
           </Typography>
-          <Typography
-            variant="h4"
-            align="center"
-            color="primary"
-            display="block"
-          >
+          <Typography variant="h4" align="center" color="primary" display="block">
             Let us do the hard work for you
           </Typography>
 

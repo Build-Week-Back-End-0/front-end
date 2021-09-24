@@ -10,8 +10,8 @@ import {
   Select,
   MenuItem,
   FormControl,
-  FormHelperText,
-  FormLabel
+  FormHelperText
+  // FormLabel
 } from "@material-ui/core";
 
 import { addPlant } from "../actions";
@@ -27,7 +27,7 @@ const initialFormErrors = {
   species: "",
   h2oFrequency: ""
 };
-const initialPlants = [];
+// const initialPlants = [];
 const initialDisabled = true;
 
 const CreatePlantForm = (props) => {
@@ -39,23 +39,7 @@ const CreatePlantForm = (props) => {
 
   const { addPlant } = props;
 
-  // const postNewPlant = (newPlant) => {
-  //   const user = localStorage.getItem("user_id");
-  //   axios
-  //     .post("https://watermyplants01.herokuapp.com/api/plants", {
-  //       user_id: user,
-  //       ...newPlant,
-  //     })
-  //     .then((res) => {
-  //       setPlants([res.data, ...plants]);
-  //       setFormValues(initialFormValues);
-  //       props.history.push("/plants");
-  //     })
-  //     .catch((err) => {
-  //       console.error(err);
-  //       setFormValues(initialFormValues);
-  //     });
-  // };
+  const user = localStorage.getItem("user_id");
 
   const validate = (name, value) => {
     yup
@@ -78,8 +62,7 @@ const CreatePlantForm = (props) => {
       species: formValues.species.trim(),
       h2oFrequency: formValues.h2oFrequency
     };
-    // postNewPlant(newPlant);
-    addPlant(newPlant, props.user_id);
+    addPlant(newPlant, user);
     push("/user");
   };
 

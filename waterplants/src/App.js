@@ -1,12 +1,11 @@
 import React from "react";
-import { Route, Link, Switch, Redirect } from "react-router-dom";
+import { Route, Link, Switch } from "react-router-dom";
 import { Button } from "@material-ui/core";
 import PrivateRoute from "./components/PrivateRoute";
 import LoginForm from "./components/LoginForm";
 import SignUpForm from "./components/SignUpForm";
 import CreatePlantForm from "./components/CreatePlantForm";
 import EditPlant from "./components/EditPlant";
-import PlantList from "./components/PlantList";
 import Home from "./components/Home";
 import Logout from "./components/Logout";
 import EditUser from "./components/EditUser";
@@ -17,15 +16,15 @@ import "./App.css";
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#b5c6bc",
+      main: "#b5c6bc"
     },
     secondary: {
-      main: "#385144",
+      main: "#385144"
     },
     text: {
-      primary: "#b5c6bc",
-    },
-  },
+      primary: "#b5c6bc"
+    }
+  }
 });
 
 const App = () => {
@@ -63,7 +62,6 @@ const App = () => {
 
           <Route path="/my-info" component={EditUser} />
 
-          {/* <Route exact path="/plants" component={PlantList} /> */}
           <PrivateRoute path="/user" component={User} />
           <Route path="/addPlant" component={CreatePlantForm} />
           <Route path="/plants/update/:id" component={EditPlant} />

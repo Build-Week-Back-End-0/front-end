@@ -16,7 +16,7 @@ const Logout = () => {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [push]); //is push needed here as a dependency?
 
   return <div></div>;
 };
